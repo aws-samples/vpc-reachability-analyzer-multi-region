@@ -204,7 +204,7 @@ def help_exit(parser, msg):
     exit(-1)
 
 # Usage:
-# python3 ra_cross_region.py --destination-port 22 --source-ip '10.100.7.248' --destination-ip '10.200.11.8' --source-resource arn:aws:ec2:us-east-2:218646657273:instance/i-04e7cb43e225e1334 --destination-resource arn:aws:ec2:us-west-2:791373089996:instance/i-0f49e55817a0b8ada --protocol 'tcp' --max-paths 2
+# python3 vpc_ra_multi_region.py --destination-port 22 --source-ip '10.100.7.248' --destination-ip '10.200.11.8' --source-resource arn:aws:ec2:us-east-2:218646657273:instance/i-04e7cb43e225e1334 --destination-resource arn:aws:ec2:us-west-2:791373089996:instance/i-0f49e55817a0b8ada --protocol 'tcp' --max-paths 2
 
 parser = argparse.ArgumentParser()
 
