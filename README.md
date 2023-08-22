@@ -5,9 +5,21 @@ This repo shows how you can use VPC Reachability Analyzer (VPC RA) to trace netw
 ### When to use this solution
 This solution works when you use Transit Gateway (TGW) peering to provide connectivity across multiple AWS Regions.
 
+### How this solution works
+This solution leverages VPC Reachability Analyzer's native capabilities, and creates multiple regional VPC RA scopes to trace network connectivity. If you use this solution to trace the networking path between the two EC2 instances, this solution will first determine that there are two paths between the two AWS Regions: Path-1 and Path-2.
+
+After discovering the paths, this solution will create a pair of regional VPC RA analyses for each path. Figure-1 shows the regional VPC RA analyses for Path-1:
+Analysis 1a in source Region: source resource (user specified) is the source, and TGW-ohio's cross region peering attachment is the destination
+Analysis 1b in destination Region: TGW-oregon's cross region peering attachment is the source, and the destination resource (user specified) is the destination
+
+![Figure-1 Sample Architecture](architecture.png)
+
+The script concludes that there is a networking path between the source and the destination if both VPC RA analyses for a path are successful. The script records this VPC RA analyses pair as a 'SuccessfulPair'
+If any one (or both) of the VPC RA analyses for a path are unsuccessful, the script treats that as an 'UnsuccessfulPair'.
+
 #### PreRequisites
 If using in a multi account scenario, set up VPC RA delegated admin account.
-Install python3
+Install python3 on the machine where you'll run this script.
 
 ### How to use
 git clone https://github.com/aws-samples/vpc-reachability-analyzer-multi-region
@@ -33,16 +45,7 @@ python3 vpc_ra_multi_region.py --destination-port <destination-port> \
 Example:
 python3 vpc_ra_multi_region.py --destination-port 22 --source-ip '10.100.7.248' --destination-ip '10.200.11.8' --source-resource arn:aws:ec2:us-east-2:1234567890:instance/<instance-ID> --destination-resource arn:aws:ec2:us-west-2:987654321:instance/<instance-ID> --protocol 'tcp' --max-paths 2
 
-### How this solution works and reading the output
-This solution leverages VPC Reachability Analyzer's native capabilities, and creates multiple regional VPC RA scopes to trace network connectivity. If you use this solution to trace the networking path between the two EC2 instances, this solution will first determine that there are two paths between the two AWS Regions: Path-1 and Path-2.
-
-After discovering the paths, this solution will create a pair of regional VPC RA analyses for each path. Figure-1 shows the regional VPC RA analyses for Path-1:
-Analysis 1a in source Region: source resource (user specified) is the source, and TGW-ohio's cross region peering attachment is the destination
-Analysis 1b in destination Region: TGW-oregon's cross region peering attachment is the source, and the destination resource (user specified) is the destination
-
-The script concludes that there is a networking path between the source and the destination if both VPC RA analyses for a path are successful. The script records this VPC RA analyses pair as a 'SuccessfulPair'
-If any one (or both) of the VPC RA analyses for a path are unsuccessful, the script treats that as an 'UnsuccessfulPair'.
-
+### Reading the output
 The script returns details of SuccessfulPair and UnsuccessfulPair in the JSON output. You can click on the URLs to get more details about the VPC RA analyses on the console.
 
 Sample output:
