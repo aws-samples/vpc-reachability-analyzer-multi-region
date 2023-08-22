@@ -28,13 +28,13 @@ git clone https://github.com/aws-samples/vpc-reachability-analyzer-multi-region
 
 Parameters used by the script:
 
-source-ip: IP address of the source resource
-source-resource: full ARN of the source resource
-destination-ip: IP address of the destination resource
-destination-resource: full ARN of the destination resource
-destination-port: destination port used to evaluate connectivity
-protocol: TCP or UDP (defaults to TCP)
-max-paths: number of paths between the two AWS Regions. In the architecture shown below, there are 2 separate paths between the two AWS Regions.
+**source-ip:** IP address of the source resource
+**source-resource:** full ARN of the source resource
+**destination-ip:** IP address of the destination resource
+**destination-resource:** full ARN of the destination resource
+**destination-port:** destination port used to evaluate connectivity
+**protocol:** TCP or UDP (defaults to TCP)
+**max-paths:** in case there are many different paths between the source and destination Regions, this script can take a long time to finish execution. Use this parameter to limit the number of paths that should be considered between the two AWS Regions. In the architecture shown below, there are 2 separate paths between the two AWS Regions.
 
 ```
 python3 vpc_ra_multi_region.py --destination-port <destination-port> \
