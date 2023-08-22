@@ -34,7 +34,7 @@ destination-port: destination port used to evaluate connectivity
 protocol: TCP or UDP (defaults to TCP)
 max-paths: number of paths between the two AWS Regions. In the architecture shown below, there are 2 separate paths between the two AWS Regions.
 
-'''
+```
 python3 vpc_ra_multi_region.py --destination-port <destination-port> \
 --source-ip <source-IP> \
 --destination-ip <destination-IP> \
@@ -42,20 +42,20 @@ python3 vpc_ra_multi_region.py --destination-port <destination-port> \
 --destination-resource <destination-resource-ARN> \
 --protocol <TCP-or-UDP> \
 --max-paths 2
-'''
+```
 
 Example:
-'''
+```
 python3 vpc_ra_multi_region.py --destination-port 22 --source-ip '10.100.7.248' --destination-ip '10.200.11.8' --source-resource arn:aws:ec2:us-east-2:1234567890:instance/<instance-ID> --destination-resource arn:aws:ec2:us-west-2:987654321:instance/<instance-ID> --protocol 'tcp' --max-paths 2
-'''
+```
 
 ### Reading the output
 The script returns details of SuccessfulPair and UnsuccessfulPair in the JSON output. You can click on the URLs to get more details about the VPC RA analyses on the console.
 
 Sample output:
-'''
+```
 {"SuccessfulPair": {"SourceNetworkInsightsAnalysisArn": "arn:aws:ec2:us-east-2:490797190003:network-insights-analysis/nia-0d650e7796f9805ff", "SourceNetworkInsightsAnalysisURL": "https://us-east-2.console.aws.amazon.com/networkinsights/home?region=us-east-2#NetworkPathAnalysis:analysisId=nia-0d650e7796f9805ff", "SourceNetworkInsightsPathId": "nip-0ddc84bb0e18158dd", "DestinationNetworkInsightsAnalysisArn": "arn:aws:ec2:us-west-2:490797190003:network-insights-analysis/nia-064e9f8277492bf79", "DestinationNetworkInsightsAnalysisURL": "https://us-west-2.console.aws.amazon.com/networkinsights/home?region=us-west-2#NetworkPathAnalysis:analysisId=nia-064e9f8277492bf79", "DestinationNetworkInsightsPathId": "nip-04cc847cbf063459d"}, "UnsuccessfulPairs": [{"SourceNetworkInsightsAnalysisArn": "arn:aws:ec2:us-east-2:490797190003:network-insights-analysis/nia-0c5f01f2c8e9be5ca", "SourceNetworkInsightsAnalysisURL": "https://us-east-2.console.aws.amazon.com/networkinsights/home?region=us-east-2#NetworkPathAnalysis:analysisId=nia-0c5f01f2c8e9be5ca", "SourceNetworkInsightsPathId": "nip-0ab03b2dacc6cdb24", "DestinationNetworkInsightsAnalysisArn": "arn:aws:ec2:us-west-2:490797190003:network-insights-analysis/nia-04b1ee1c83fdafac0", "DestinationNetworkInsightsAnalysisURL": "https://us-west-2.console.aws.amazon.com/networkinsights/home?region=us-west-2#NetworkPathAnalysis:analysisId=nia-04b1ee1c83fdafac0", "DestinationNetworkInsightsPathId": "nip-0f947efb3ef8d3b85"}]}
-'''
+```
 
 ## Security
 
