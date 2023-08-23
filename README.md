@@ -18,10 +18,13 @@ The script concludes that there is a networking path between the source and the 
 If any one (or both) of the VPC RA analyses for a path are unsuccessful, the script treats that as an 'UnsuccessfulPair'.
 
 #### PreRequisites
-If using in a multi account scenario, set up VPC RA delegated admin account.
-Install python3 on the machine where you'll run this script.
+- This script makes API calls to AWS, and requires IAM privileges to discover networking constructs and to create/execute VPC RA analyses. It's ideal to execute this script from the central networking/infra AWS account
+- If using in a multi account scenario, set up VPC RA delegated admin account. Check out the [VPC RA multi-account blog post](https://aws.amazon.com/blogs/networking-and-content-delivery/visualize-and-diagnose-network-reachability-across-aws-accounts-using-reachability-analyzer/) for details
+- Install python3 on the machine where you'll run this script
 
 ### How to use
+Use `aws configure` to ensure you have the correct IAM privileges. After that, clone the repo:
+
 ```
 git clone https://github.com/aws-samples/vpc-reachability-analyzer-multi-region
 ```
@@ -58,6 +61,9 @@ Sample output:
 ```
 {"SuccessfulPair": {"SourceNetworkInsightsAnalysisArn": "arn:aws:ec2:us-east-2:490797190003:network-insights-analysis/nia-0d650e7796f9805ff", "SourceNetworkInsightsAnalysisURL": "https://us-east-2.console.aws.amazon.com/networkinsights/home?region=us-east-2#NetworkPathAnalysis:analysisId=nia-0d650e7796f9805ff", "SourceNetworkInsightsPathId": "nip-0ddc84bb0e18158dd", "DestinationNetworkInsightsAnalysisArn": "arn:aws:ec2:us-west-2:490797190003:network-insights-analysis/nia-064e9f8277492bf79", "DestinationNetworkInsightsAnalysisURL": "https://us-west-2.console.aws.amazon.com/networkinsights/home?region=us-west-2#NetworkPathAnalysis:analysisId=nia-064e9f8277492bf79", "DestinationNetworkInsightsPathId": "nip-04cc847cbf063459d"}, "UnsuccessfulPairs": [{"SourceNetworkInsightsAnalysisArn": "arn:aws:ec2:us-east-2:490797190003:network-insights-analysis/nia-0c5f01f2c8e9be5ca", "SourceNetworkInsightsAnalysisURL": "https://us-east-2.console.aws.amazon.com/networkinsights/home?region=us-east-2#NetworkPathAnalysis:analysisId=nia-0c5f01f2c8e9be5ca", "SourceNetworkInsightsPathId": "nip-0ab03b2dacc6cdb24", "DestinationNetworkInsightsAnalysisArn": "arn:aws:ec2:us-west-2:490797190003:network-insights-analysis/nia-04b1ee1c83fdafac0", "DestinationNetworkInsightsAnalysisURL": "https://us-west-2.console.aws.amazon.com/networkinsights/home?region=us-west-2#NetworkPathAnalysis:analysisId=nia-04b1ee1c83fdafac0", "DestinationNetworkInsightsPathId": "nip-0f947efb3ef8d3b85"}]}
 ```
+
+### Pricing
+VPC Reachability Analyzer has a per analysis price of $0.10. Please check out [VPC pricing page](https://aws.amazon.com/vpc/pricing/) for details.
 
 ## Security
 
