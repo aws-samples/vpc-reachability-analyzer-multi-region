@@ -278,4 +278,4 @@ response['UnsuccessfulPairs'] = []
 for pair in pair_results['UnsuccessfulPairs']:
     response['UnsuccessfulPairs'].append(create_response(pair, source_region, destination_region))
 
-print(json.dumps(response))
+print(json.dumps(response), indent=4)
